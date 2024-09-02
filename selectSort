@@ -1,3 +1,5 @@
+import time
+
 def selectSort(data):
     n = len(data)
     for i in range(n-1):
@@ -12,5 +14,10 @@ def selectSort(data):
 
 lista = [10, 7, 8, 6, 4, 1, 2, 5]
 print("Lista não ordenada:", lista)
-selectSort(lista)  
+selectSort(lista)
 print("Lista ordenada:", lista)
+
+start_time = time.time()
+end_time = time.time()
+
+print("Tempo de execução:", end_time - start_time, "segundos")

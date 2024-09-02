@@ -1,3 +1,5 @@
+import time
+
 def merge(v, ini, meio, fim):
     temp = []
     p1 = ini
@@ -28,4 +30,10 @@ def merge_sort(v, ini, fim):
 # Exemplo de uso:
 v = [38, 27, 43, 3, 9, 82, 10]
 merge_sort(v, 0, len(v) - 1)
+
+
+start_time = time.time()
+end_time = time.time()
+
 print(v)  # Deve exibir a lista ordenada
+print("Tempo de execução:", end_time - start_time, "segundos")

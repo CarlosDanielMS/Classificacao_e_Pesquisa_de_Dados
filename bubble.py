@@ -1,3 +1,5 @@
+import time
+
 def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -13,3 +15,8 @@ arr = [64, 34, 25, 12, 22, 11, 90]
 print("-- ", arr)
 bubble_sort(arr)
 print("-- ", arr)
+
+start_time = time.time()
+end_time = time.time()
+
+print("Tempo de execução:", end_time - start_time, "segundos")

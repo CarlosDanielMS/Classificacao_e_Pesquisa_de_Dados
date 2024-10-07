@@ -1,0 +1,5 @@
+pip install 
+Flask 
+requests 
+beautifulsoup4 
+Jinja2

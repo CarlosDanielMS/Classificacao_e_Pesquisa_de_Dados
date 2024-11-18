@@ -1,0 +1,43 @@
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = {i: [] for i in range(size)}
+    
+    def _hash(self, key):
+        """Função de hash simples"""
+        return hash(key) % self.size
+    
+    def insert(self, key, value):
+        """Insere um valor na hash table"""
+        index = self._hash(key)
+        if value not in self.table[index]:
+            self.table[index].append(value)
+    
+    def search(self, key, value):
+        """Busca um valor na hash table"""
+        index = self._hash(key)
+        return value in self.table[index]
+    
+    def delete(self, key, value):
+        """Remove um valor da hash table"""
+        index = self._hash(key)
+        if value in self.table[index]:
+            self.table[index].remove(value)
+    
+    def __str__(self):
+        return str(self.table)
+
+
+# Exemplo de uso
+htable = HashTable(10)
+htable.insert("nome", "Alice")
+htable.insert("nome", "Bob")
+htable.insert("idade", 25)
+htable.insert("idade", 30)
+
+print("Tabela hash após inserções:", htable)
+print("Buscar por 'Alice' na hash:", htable.search("nome", "Alice"))
+htable.delete("nome", "Alice")
+print("Tabela hash após remoção de 'Alice':", htable)
+
+

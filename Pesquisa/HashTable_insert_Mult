@@ -7,10 +7,14 @@ class HashTable:
         """Função de hash simples"""
         return hash(key) % self.size
     
-    def insert(self, **kwargs):
-        """Insere múltiplos valores na hash table"""
-        for key, value in kwargs.items():
-            index = self._hash(key)
+    def insert(self, key, value):
+        """Insere um valor (ou lista de valores) na hash table"""
+        index = self._hash(key)
+        if isinstance(value, list):
+            for val in value:
+                if val not in self.table[index]:
+                    self.table[index].append(val)
+        else:
             if value not in self.table[index]:
                 self.table[index].append(value)
     
@@ -28,9 +32,10 @@ class HashTable:
     def __str__(self):
         return str(self.table)
 
-l = ["relatorio.pdf","/documentos/relatorio.pdf",1024] # insrir valores para uma
+
+
+l = ["relatorio.pdf", "/documentos/relatorio.pdf", 1024]
 htable = HashTable(10)
-htable.insert(l)
+htable.insert("arquivos", l)
 
 print("Tabela hash após inserções:", htable)
-

@@ -28,11 +28,9 @@ class HashTable:
     def __str__(self):
         return str(self.table)
 
-
+l = ["relatorio.pdf","/documentos/relatorio.pdf",1024] # insrir valores para uma
 htable = HashTable(10)
-htable.insert(nome="relatorio.pdf", Caminho="/documentos/relatorio.pdf", Tamanho=1024)
+htable.insert(l)
 
 print("Tabela hash após inserções:", htable)
-print("Buscar por 'relatorio.pdf' na hash:", htable.search("nome", "relatorio.pdf"))
-htable.delete("nome", "relatorio.pdf")
-print("Tabela hash após remoção de 'relatorio.pdf':", htable)
+

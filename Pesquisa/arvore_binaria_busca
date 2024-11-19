@@ -1,0 +1,129 @@
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.value = key
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, key):
+        if self.root is None:
+            self.root = Node(key)
+        else:
+            self._insert_recursive(self.root, key)
+
+    def _insert_recursive(self, node, key):
+        if key < node.value:
+            if node.left is None:
+                node.left = Node(key)
+            else:
+                self._insert_recursive(node.left, key)
+        elif key > node.value:
+            if node.right is None:
+                node.right = Node(key)
+            else:
+                self._insert_recursive(node.right, key)
+
+    def search(self, key):
+        return self._search_recursive(self.root, key)
+
+    def _search_recursive(self, node, key):
+        if node is None or node.value == key:
+            return node
+        if key < node.value:
+            return self._search_recursive(node.left, key)
+        return self._search_recursive(node.right, key)
+
+    def inorder(self):
+        result = []
+        self._inorder_recursive(self.root, result)
+        return result
+
+    def _inorder_recursive(self, node, result):
+        if node:
+            self._inorder_recursive(node.left, result)
+            result.append(node.value)
+            self._inorder_recursive(node.right, result)
+
+    def remove(self, key):
+        self.root = self._remove_recursive(self.root, key)
+
+    def _remove_recursive(self, node, key):
+        if node is None:
+            return node
+        if key < node.value:
+            node.left = self._remove_recursive(node.left, key)
+        elif key > node.value:
+            node.right = self._remove_recursive(node.right, key)
+        else:
+            # Caso 1: Nó com apenas um filho ou sem filhos
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+
+            # Caso 2: Nó com dois filhos
+            node.value = self._min_value_node(node.right).value
+            node.right = self._remove_recursive(node.right, node.value)
+        return node
+
+    def _min_value_node(self, node):
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current
+
+    def height(self):
+        return self._height_recursive(self.root)
+
+    def _height_recursive(self, node):
+        if node is None:
+            return -1
+        left_height = self._height_recursive(node.left)
+        right_height = self._height_recursive(node.right)
+        return max(left_height, right_height) + 1
+
+    def successor(self, key):
+        node = self.search(key)
+        if node is None:
+            return None
+        if node.right:
+            return self._min_value_node(node.right).value
+        return None
+
+    def predecessor(self, key):
+        node = self.search(key)
+        if node is None:
+            return None
+        if node.left:
+            current = node.left
+            while current.right:
+                current = current.right
+            return current.value
+        return None
+
+# Exemplo de uso da árvore binária de busca
+bst = BinarySearchTree()
+values = [50, 30, 70, 20, 40, 60, 80]
+for val in values:
+    bst.insert(val)
+
+# Exibir a árvore em ordem
+print("Árvore em ordem:", bst.inorder())
+
+# Buscar elementos
+print("Busca por 40:", bst.search(40) is not None)
+print("Busca por 25:", bst.search(25) is not None)
+
+# Remover um nó
+bst.remove(30)
+print("Árvore após remoção de 30:", bst.inorder())
+
+# Calcular a altura da árvore
+print("Altura da árvore:", bst.height())
+
+# Encontrar o sucessor e predecessor
+print("Sucessor de 60:", bst.successor(60))
+print("Predecessor de 40:", bst.predecessor(40))
